@@ -1,8 +1,10 @@
 # MVS - Multi-Vector Simulator of the E-Land toolbox
 
 [![Documentation Status](https://readthedocs.org/projects/multi-vector-simulator/badge/?version=latest)](https://multi-vector-simulator.readthedocs.io/en/latest/?badge=latest)
-[![Build Status](https://travis-ci.com/rl-institut/mvs_eland.svg?branch=dev)](https://travis-ci.com/rl-institut/mvs_eland)
+![CI](https://github.com/rl-institut/multi-vector-simulator/workflows/CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/rl-institut/multi-vector-simulator/badge.svg)](https://coveralls.io/github/rl-institut/multi-vector-simulator)
+
+Deprecated: [![Build Status](https://travis-ci.com/rl-institut/mvs_eland.svg?branch=dev)](https://travis-ci.com/rl-institut/mvs_eland)
 
 Rights: [Reiner Lemoine Institut (Berlin)](https://reiner-lemoine-institut.de/)
 
