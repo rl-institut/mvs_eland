@@ -25,15 +25,19 @@ Here is a template for new release sections
 - Warning for missing parameter when parsing inputs from epa to mvs (#656)
 - New module `exceptions.py` in `multi_vector_simulator.utils` to gather custom MVS exceptions (#656)
 - New argument for functions `E1.convert_demand_to_dataframe`, `F1.plot_timeseries`, `F2.ready_timeseries_plots` (#665)
+- File .github/workflow/main.yml for github actions (#668)
+
 ### Changed
 - Function `utils.compare_input_parameters_with_reference` accepts parameters as dict for json comparison (#656)
 - Move A1 and C0 custom exceptions into `multi_vector_simulator.utils.exceptions.py` (#656)
 - Adapt `E1.convert_demand_to_dataframe` for multiple sectors (#656)
 - Improve the demands section of the autoreport: Divide the demand tables and plots sector-wise (#665)
+
 ### Removed
--
+- File .travis.yml (#668)
+
 ### Fixed
--
+
 
 ## [0.5.2] - 2020-11-11
 
