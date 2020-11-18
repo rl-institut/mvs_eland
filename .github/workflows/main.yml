@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the dev branch
+on:
+  push:
+
+
+  pull_request:
+    branches:
+      -dev
+      -master
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Set env for dev branch
+        if: endsWith(github.ref, '/develop')
+        run: |
+          echo "::set-env name=EXECUTE_TESTS_ON::dev"
+      - name: Set env for master branch
+        if: endsWith(github.ref, '/master')
+        run: |
+          echo "::set-env name==EXECUTE_TESTS_ON::master"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install pre-dependencies
+        run: |
+            sudo apt-get install coinor-cbc
+            sudo apt-get install graphviz
+            sudo apt-get install wkhtmltopdf
+
+      # Runs a set of commands using the runners shell
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel
+          pip install -r requirements/test.txt
+          pip install -e .[report]
+          
+      - name: Lint with black
+        run: |
+          black --check . --exclude docs/
+
+      - name: Test with pytest
+        run: |
+          coverage run -m pytest
