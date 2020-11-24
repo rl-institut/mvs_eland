@@ -75,7 +75,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 MAP_EPA_MVS = {
     "economic_data": ECONOMIC_DATA,
-    "energyProviders": ENERGY_PROVIDERS,
+    "energy_providers": ENERGY_PROVIDERS,
     "energy_busses": ENERGY_BUSSES,
     "energy_consumption": ENERGY_CONSUMPTION,
     "energy_conversion": ENERGY_CONVERSION,
@@ -92,6 +92,7 @@ MAP_EPA_MVS = {
     "renewable_asset": RENEWABLE_ASSET_BOOL,
     KPI: KPI,
     FIX_COST: FIX_COST,
+    "time_step": TIMESTEP,
 }
 
 MAP_MVS_EPA = {value: key for (key, value) in MAP_EPA_MVS.items()}
@@ -240,7 +241,7 @@ def convert_epa_params_to_mvs(epa_dict):
                     ].pop(k)
         else:
             logging.warning(
-                f"The parameters {MAP_MVS_EPA[param_group]} are not present in the parameters to be parsed into mvs json format"
+                f"The parameters group '{MAP_MVS_EPA[param_group]}' is not present in the EPA parameters to be parsed into MVS json format"
             )
 
     for asset_group in [
@@ -273,7 +274,7 @@ def convert_epa_params_to_mvs(epa_dict):
             dict_values[asset_group] = dict_asset
         else:
             logging.warning(
-                f"The parameters {MAP_MVS_EPA[asset_group]} are not present in the parameters to be parsed into mvs json format"
+                f"The assets parameters '{MAP_MVS_EPA[asset_group]}' is not present in the EPA parameters to be parsed into MVS json format"
             )
 
     comparison = compare_input_parameters_with_reference(dict_values)
