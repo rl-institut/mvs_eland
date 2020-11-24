@@ -180,7 +180,7 @@ REQUIRED_CSV_FILES = tuple(REQUIRED_CSV_PARAMETERS.keys())
 # note: if the value of a key is none, then the value is expected to be user-defined and thus cannot
 # be in a required parameters dict
 REQUIRED_JSON_PARAMETERS = {
-    ECONOMIC_DATA: [CURR, DISCOUNTFACTOR, LABEL, PROJECT_DURATION, TAX],
+    ECONOMIC_DATA: [CURR, DISCOUNTFACTOR, PROJECT_DURATION, TAX],
     ENERGY_BUSSES: None,
     ENERGY_CONSUMPTION: None,
     ENERGY_CONVERSION: None,
@@ -191,7 +191,6 @@ REQUIRED_JSON_PARAMETERS = {
     CONSTRAINTS: [MINIMAL_RENEWABLE_FACTOR],
     PROJECT_DATA: [
         COUNTRY,
-        LABEL,
         LATITUDE,
         LONGITUDE,
         PROJECT_ID,
@@ -201,7 +200,6 @@ REQUIRED_JSON_PARAMETERS = {
     ],
     SIMULATION_SETTINGS: [
         EVALUATED_PERIOD,
-        LABEL,
         OUTPUT_LP_FILE,
         START_DATE,
         STORE_OEMOF_RESULTS,
