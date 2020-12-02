@@ -3,4 +3,3 @@ start_date,str,2018-01-01 00:00:00
 evaluated_period,days,365
 timestep,minutes,60
 output_lp_file,bool,False
-store_oemof_results,bool,False

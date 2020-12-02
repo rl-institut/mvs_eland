@@ -2027,10 +2027,6 @@
         "path_output_folder_inputs": "D:\\PycharmProjects\\mvs_eland\\MVS_outputs\\inputs",
         "periods": 48,
         "start_date": "2018-01-01 00:00:00",
-        "store_oemof_results": {
-            "unit": "bool",
-            "value": true
-        },
         "time_index": {
                "columns": [
                     0

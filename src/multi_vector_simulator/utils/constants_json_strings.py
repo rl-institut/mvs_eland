@@ -66,7 +66,6 @@ LATITUDE = "latitude"
 # Project data and simulation settings (true/false)
 SIMULATION_SETTINGS = "simulation_settings"
 OUTPUT_LP_FILE = "output_lp_file"
-STORE_OEMOF_RESULTS = "store_oemof_results"
 PROJECT_NAME = "project_name"
 SCENARIO_NAME = "scenario_name"
 COUNTRY = "country"

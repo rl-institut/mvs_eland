@@ -39,9 +39,8 @@
 37, None," Actual OPEX of the asset, i.e., specific operational and maintenance costs.", 0, None, Numeric, currency/unit/year,specific_costs_om,specificomcosts-label
 38, None, The data and time on which the simulation starts at the first step., 2018-01-01 00:00:00, Acceptable format is YYYY-MM-DD HH:MM:SS, str, None,start_date,startdate-label
 39, None," Corresponding to the values in C1, D1, E1… cells, enter the correct CSV filename which hosts the parameters of the corresponding storage component.", storage_01.csv, Follows the convention of 'storage_xx.csv' where 'xx' is a number, str, None,storage_filename,storagefilename-label
-40, None, [Developer setting] Assigning True would enable the results to be stored in a OEMOF file., False, Acceptable values are either True or False, str, Boolean,store_oemof_results,storeoemoefresults-label
-41, None, Tax factor., 0.0, None, Numeric, Factor,tax,tax-label
-42, None, Length of the time-steps., 60, None, Numeric, Minutes,timestep,timestep-label
-43, None, The type of the component., demand, *demand*, str, None,type_asset,typeasset-label
-44, None," Input the type of OEMOF component. For example, a PV plant would be a source, a solar inverter would be a transformer, etc.  The “type_oemof” will later on be determined through the EPA.", sink, *sink* or *source* or one of the other component classes of OEMOF., str, None,type_oemof,typeoemof-label
-45, None, Unit associated with the capacity of the component.," Storage could have units like kW or kWh, transformer station could have kVA, and so on.", Appropriate scientific unit, str, NA,unit,unit-label
+40, None, Tax factor., 0.0, None, Numeric, Factor,tax,tax-label
+41, None, Length of the time-steps., 60, None, Numeric, Minutes,timestep,timestep-label
+42, None, The type of the component., demand, *demand*, str, None,type_asset,typeasset-label
+43, None," Input the type of OEMOF component. For example, a PV plant would be a source, a solar inverter would be a transformer, etc.  The “type_oemof” will later on be determined through the EPA.", sink, *sink* or *source* or one of the other component classes of OEMOF., str, None,type_oemof,typeoemof-label
+44, None, Unit associated with the capacity of the component.," Storage could have units like kW or kWh, transformer station could have kVA, and so on.", Appropriate scientific unit, str, NA,unit,unit-label

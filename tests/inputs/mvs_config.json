@@ -739,10 +739,6 @@
             "value": false
         },
         "start_date": "2018-01-01 00:00:00",
-        "store_oemof_results": {
-            "unit": "bool",
-            "value": false
-        },
         "timestep": {
             "unit": "minutes",
             "value": 60

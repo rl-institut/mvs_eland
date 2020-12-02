@@ -28,7 +28,6 @@ from multi_vector_simulator.utils.constants_json_strings import (
     LABEL,
     TIME_INDEX,
     OUTPUT_LP_FILE,
-    STORE_OEMOF_RESULTS,
     SIMULATION_RESULTS,
     OBJECTIVE_VALUE,
     SIMULTATION_TIME,
@@ -104,8 +103,6 @@ def run_oemof(dict_values, save_energy_system_graph=False):
     model, results_main, results_meta = model_building.simulating(
         dict_values, model, local_energy_system
     )
-
-    model_building.store_oemof_results(dict_values, model)
 
     timer.stop(dict_values, start)
 
@@ -315,33 +312,6 @@ class model_building:
             round(dict_values[SIMULATION_RESULTS][SIMULTATION_TIME] / 60, 2),
         )
         return model, results_main, results_main
-
-    def store_oemof_results(dict_values, model):
-        """
-        Stores oemof results to file ("oemof_simulation_results.oemof") if setting store_oemof_results is True.
-
-        Parameters
-        ----------
-        dict_values: dict
-            all simulation inputs
-
-        model: object
-            oemof object for energy system model
-
-        Returns
-        -------
-        None
-        """
-        # store energy system with results
-        if dict_values[SIMULATION_SETTINGS][STORE_OEMOF_RESULTS][VALUE] is True:
-            model.dump(
-                dpath=dict_values[SIMULATION_SETTINGS][PATH_OUTPUT_FOLDER],
-                filename="oemof_simulation_results.oemof",
-            )
-            logging.debug(
-                "Stored results in %s/MVS_results.oemof.",
-                dict_values[SIMULATION_SETTINGS][PATH_OUTPUT_FOLDER],
-            )
 
 
 class timer:

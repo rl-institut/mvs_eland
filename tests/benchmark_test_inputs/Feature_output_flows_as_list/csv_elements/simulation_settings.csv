@@ -2,5 +2,4 @@
 evaluated_period,days,1
 output_lp_file,bool,False
 start_date,str,2018-01-01 00:00:00
-store_oemof_results,bool,False
 timestep,minutes,60

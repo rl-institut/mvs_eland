@@ -23,7 +23,6 @@ from multi_vector_simulator.utils.constants_json_strings import (
     VALUE,
     SIMULATION_SETTINGS,
     TIME_INDEX,
-    STORE_OEMOF_RESULTS,
     OUTPUT_LP_FILE,
     SIMULATION_RESULTS,
     OBJECTIVE_VALUE,
@@ -198,18 +197,6 @@ def test_if_lp_file_is_stored_to_file_if_output_lp_file_false(dict_values):
 
 
 path_oemof_file = os.path.join(TEST_OUTPUT_PATH, "oemof_simulation_results.oemof")
-
-
-def test_if_oemof_results_are_stored_to_file_if_store_oemof_results_true(dict_values):
-    dict_values[SIMULATION_SETTINGS][STORE_OEMOF_RESULTS].update({VALUE: True})
-    D0.run_oemof(dict_values)
-    assert os.path.exists(path_oemof_file) is True
-
-
-def test_if_oemof_results_are_stored_to_file_if_store_oemof_results_false(dict_values):
-    dict_values[SIMULATION_SETTINGS][STORE_OEMOF_RESULTS].update({VALUE: False})
-    D0.run_oemof(dict_values)
-    assert os.path.exists(path_oemof_file) is False
 
 
 def test_if_simulation_results_added_to_dict_values(dict_values):
