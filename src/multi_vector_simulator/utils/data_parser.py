@@ -62,10 +62,13 @@ from multi_vector_simulator.utils.constants_json_strings import (
     SCENARIO_NAME,
     START_DATE,
     EVALUATED_PERIOD,
-    TIMESTEP,
-    KPI,
-    KPI_SCALARS_DICT,
+    OUTPUT_LP_FILE,
+    MINIMAL_RENEWABLE_FACTOR,
     FIX_COST,
+    KPI,
+    TIMESTEP,
+    KPI_SCALARS_DICT,
+    VALUE,
     DATA,
 )
 
@@ -284,20 +287,44 @@ def convert_epa_params_to_mvs(epa_dict):
 
         d = comparison[MISSING_PARAMETERS_KEY]
 
+        # this should not be missing on EPA side, but in case it is take default value 0
+        if CONSTRAINTS in d:
+            dict_values[CONSTRAINTS] = (
+                {MINIMAL_RENEWABLE_FACTOR: {UNIT: "factor", VALUE: 0}},
+            )
+            d.pop(CONSTRAINTS)
+
+        if SIMULATION_SETTINGS in d:
+            if (
+                OUTPUT_LP_FILE in d[SIMULATION_SETTINGS]
+                and len(d[SIMULATION_SETTINGS]) == 1
+            ):
+                dict_values[SIMULATION_SETTINGS][OUTPUT_LP_FILE] = {
+                    UNIT: "bool",
+                    VALUE: False,
+                }
+                d.pop(SIMULATION_SETTINGS)
+
+        if FIX_COST in d:
+            dict_values[FIX_COST] = {}
+            d.pop(FIX_COST)
+
         errror_msg.append(" ")
         errror_msg.append(" ")
         errror_msg.append(
             "The following parameter groups and sub parameters are missing from input parameters:"
         )
 
-        for asset_group in d.keys():
-            errror_msg.append(asset_group)
-            print(asset_group)
-            if d[asset_group] is not None:
-                for k in d[asset_group]:
-                    errror_msg.append(f"\t`{k}` parameter")
+        if len(d.keys()) > 0:
 
-        raise (MissingParameterError("\n".join(errror_msg)))
+            for asset_group in d.keys():
+                errror_msg.append(asset_group)
+                print(asset_group)
+                if d[asset_group] is not None:
+                    for k in d[asset_group]:
+                        errror_msg.append(f"\t`{k}` parameter")
+
+            raise (MissingParameterError("\n".join(errror_msg)))
 
     return dict_values
 
