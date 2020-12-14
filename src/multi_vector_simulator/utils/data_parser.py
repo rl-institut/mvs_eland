@@ -85,6 +85,8 @@ MAP_EPA_MVS = {
     "energy_production": ENERGY_PRODUCTION,
     "energy_storage": ENERGY_STORAGE,
     "project_data": PROJECT_DATA,
+    "inflow_bus_name": INFLOW_DIRECTION,
+    "outflow_bus_name": OUTFLOW_DIRECTION,
     "simulation_settings": SIMULATION_SETTINGS,
     "energy_vector": ENERGY_VECTOR,
     "installed_capacity": INSTALLED_CAP,
