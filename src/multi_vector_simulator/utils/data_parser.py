@@ -91,6 +91,8 @@ MAP_EPA_MVS = {
     "energy_vector": ENERGY_VECTOR,
     "installed_capacity": INSTALLED_CAP,
     "capacity": STORAGE_CAPACITY,
+    "input_power": INPUT_POWER,
+    "output_power": OUTPUT_POWER,
     "optimize_capacity": OPTIMIZE_CAP,
     "maximum_capacity": MAXIMUM_CAP,
     "input_timeseries": TIMESERIES,
