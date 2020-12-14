@@ -194,7 +194,8 @@ def get_replacement_costs(
             f"Please check this value."
         )
 
-    present_value_of_capital_expenditures = pd.Series([latest_investment], index=[year])
+    present_value_of_capital_expenditures = pd.DataFrame([0 for i in range(0,project_lifetime+1)],
+                                                         index=[j for j in range(0,project_lifetime+1)])
 
     # Looping over replacements, excluding first_time_investment in year (0 - age_of_asset)
     for count_of_replacements in range(1, number_of_investments):
@@ -206,7 +207,7 @@ def get_replacement_costs(
         # Add latest investment to replacement costs
         replacement_costs += latest_investment
         # Update cash flow projection (specific)
-        present_value_of_capital_expenditures[year] = latest_investment
+        present_value_of_capital_expenditures.loc[year] = latest_investment
 
     # Calculation of residual value / value at project end
     year += asset_lifetime
@@ -222,7 +223,7 @@ def get_replacement_costs(
         # Subtraction of component value at end of life with last replacement (= number_of_investments - 1)
         replacement_costs -= value_at_project_end
         # Update cash flow projection (specific)
-        present_value_of_capital_expenditures[project_lifetime] = -value_at_project_end
+        present_value_of_capital_expenditures.loc[project_lifetime] = -value_at_project_end
 
     return replacement_costs
 
