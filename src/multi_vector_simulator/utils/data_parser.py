@@ -286,12 +286,11 @@ def convert_epa_params_to_mvs(epa_dict):
         errror_msg = []
 
         d = comparison[MISSING_PARAMETERS_KEY]
-
         # this should not be missing on EPA side, but in case it is take default value 0
         if CONSTRAINTS in d:
-            dict_values[CONSTRAINTS] = (
-                {MINIMAL_RENEWABLE_FACTOR: {UNIT: "factor", VALUE: 0}},
-            )
+            dict_values[CONSTRAINTS] = {
+                MINIMAL_RENEWABLE_FACTOR: {UNIT: "factor", VALUE: 0}
+            }
             d.pop(CONSTRAINTS)
 
         if SIMULATION_SETTINGS in d:
@@ -304,7 +303,6 @@ def convert_epa_params_to_mvs(epa_dict):
                     VALUE: False,
                 }
                 d.pop(SIMULATION_SETTINGS)
-
         if FIX_COST in d:
             dict_values[FIX_COST] = {}
             d.pop(FIX_COST)
