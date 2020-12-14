@@ -14,7 +14,7 @@ import logging
 from multi_vector_simulator.utils import compare_input_parameters_with_reference
 
 
-from multi_vector_simulator.utils.constants import MISSING_PARAMETERS_KEY
+from multi_vector_simulator.utils.constants import MISSING_PARAMETERS_KEY, DATA_TYPE_JSON_KEY, TYPE_SERIES
 from multi_vector_simulator.utils.constants_json_strings import (
     PROJECT_DATA,
     ECONOMIC_DATA,
@@ -274,11 +274,13 @@ def convert_epa_params_to_mvs(epa_dict):
                             asset_label
                         ].pop(k)
 
-            # move the unit outside the timeseries dict
-            if TIMESERIES in dict_asset:
-                unit = dict_asset[TIMESERIES].pop(UNIT)
-                dict_asset[UNIT] = unit
-
+                # move the unit outside the timeseries dict
+                if TIMESERIES in dict_asset[asset_label]:
+                    unit = dict_asset[asset_label][TIMESERIES].pop(UNIT)
+                    data = dict_asset[asset_label][TIMESERIES].pop("data")
+                    dict_asset[asset_label][UNIT] = unit # todo this is a trick, as "UNIT" was not given
+                    dict_asset[asset_label][TIMESERIES][VALUE] = data
+                    dict_asset[asset_label][TIMESERIES][DATA_TYPE_JSON_KEY] = TYPE_SERIES
             dict_values[asset_group] = dict_asset
         else:
             logging.warning(
