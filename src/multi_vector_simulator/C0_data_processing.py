@@ -718,6 +718,11 @@ def change_sign_of_feedin_tariff(dict_feedin_tariff, dso):
         logging.debug(
             f"The {FEEDIN_TARIFF} of {dso} is positive, which means that feeding into the grid results in a revenue stream."
         )
+    elif dict_feedin_tariff[VALUE] == 0:
+        # Add a warning msg in case the feedin induces expenses rather then revenue
+        logging.info(
+            f"The {FEEDIN_TARIFF} of {dso} is 0, which means that there is no renumeration for feed-in to the grid. Potentially, this can lead to random dispatch into feed-in and excess sinks."
+        )
     elif dict_feedin_tariff[VALUE] < 0:
         # Add a warning msg in case the feedin induces expenses rather then revenue
         logging.warning(

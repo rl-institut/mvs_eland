@@ -1069,8 +1069,9 @@ def test_change_sign_of_feedin_tariff_zero(caplog):
         dict_feedin[VALUE] == 0
     ), f"If the {FEEDIN_TARIFF} is zero it should stay like that but it was changed to {dict_feedin[VALUE]}."
     assert (
-        caplog.text == ""
-    ), f"A msg is logged although the feed-in tariff is not changed."
+        "which means that there is no renumeration for feed-in to the grid"
+        in caplog.text
+    ), f"No information regarding feed-in tariff zero is added to the log."
 
 
 """
