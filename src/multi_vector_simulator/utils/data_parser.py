@@ -14,7 +14,11 @@ import logging
 from multi_vector_simulator.utils import compare_input_parameters_with_reference
 
 
-from multi_vector_simulator.utils.constants import MISSING_PARAMETERS_KEY, DATA_TYPE_JSON_KEY, TYPE_SERIES
+from multi_vector_simulator.utils.constants import (
+    MISSING_PARAMETERS_KEY,
+    DATA_TYPE_JSON_KEY,
+    TYPE_SERIES,
+)
 from multi_vector_simulator.utils.constants_json_strings import (
     PROJECT_DATA,
     ECONOMIC_DATA,
@@ -101,6 +105,7 @@ MAP_EPA_MVS = {
     KPI: KPI,
     FIX_COST: FIX_COST,
     "time_step": TIMESTEP,
+    "data": VALUE,
 }
 
 MAP_MVS_EPA = {value: key for (key, value) in MAP_EPA_MVS.items()}
@@ -228,6 +233,20 @@ def convert_epa_params_to_mvs(epa_dict):
 
     dict_values = {}
 
+    """
+    ##Brute-force method:
+    # Read in the file
+    with open('file.txt', 'r') as file:
+        filedata = file.read()
+
+    # Replace the target string
+    filedata = filedata.replace('ram', 'abcd')
+
+    # Write the file out again
+    with open('file.txt', 'w') as file:
+        file.write(filedata)
+    """
+
     for param_group in [
         PROJECT_DATA,
         ECONOMIC_DATA,
@@ -278,9 +297,13 @@ def convert_epa_params_to_mvs(epa_dict):
                 if TIMESERIES in dict_asset[asset_label]:
                     unit = dict_asset[asset_label][TIMESERIES].pop(UNIT)
                     data = dict_asset[asset_label][TIMESERIES].pop("data")
-                    dict_asset[asset_label][UNIT] = unit # todo this is a trick, as "UNIT" was not given
+                    dict_asset[asset_label][
+                        UNIT
+                    ] = unit  # todo this is a trick, as "UNIT" was not given
                     dict_asset[asset_label][TIMESERIES][VALUE] = data
-                    dict_asset[asset_label][TIMESERIES][DATA_TYPE_JSON_KEY] = TYPE_SERIES
+                    dict_asset[asset_label][TIMESERIES][
+                        DATA_TYPE_JSON_KEY
+                    ] = TYPE_SERIES
             dict_values[asset_group] = dict_asset
         else:
             logging.warning(
