@@ -79,3 +79,6 @@ def translates_epa_strings_to_mvs_readable(folder_name, file_name):
 
     with open(folder_name + "/" + "mvs_config.json", "w") as json_file:
         json.dump(dict_values, json_file, indent=4)
+
+
+# translates_epa_strings_to_mvs_readable("./epa_benchmark", "epa_benchmark.json-original")
