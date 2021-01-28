@@ -30,13 +30,13 @@ child-sub:  Sub-child function, feeds only back to child functions
 import logging
 import os
 
-import multi_vector_simulator.A0_initialization as initializing
-import multi_vector_simulator.A1_csv_to_json as load_data_from_csv
-import multi_vector_simulator.B0_data_input_json as data_input
-import multi_vector_simulator.C0_data_processing as data_processing
-import multi_vector_simulator.D0_modelling_and_optimization as modelling
-import multi_vector_simulator.E0_evaluation as evaluation
-import multi_vector_simulator.F0_output as output_processing
+import multi_vector_simulator.A0_initialization as A0
+import multi_vector_simulator.A1_csv_to_json as A1
+import multi_vector_simulator.B0_data_input_json as B0
+import multi_vector_simulator.C0_data_processing as C0
+import multi_vector_simulator.D0_modelling_and_optimization as D0
+import multi_vector_simulator.E0_evaluation as E0
+import multi_vector_simulator.F0_output as F0
 
 try:
     from multi_vector_simulator.F2_autoreport import (
@@ -122,7 +122,7 @@ def main(**kwargs):
 
     logging.debug("Accessing script: A0_initialization")
 
-    user_input = initializing.process_user_arguments(
+    user_input = A0.process_user_arguments(
         welcome_text=welcome_text, **kwargs
     )
 
@@ -136,12 +136,12 @@ def main(**kwargs):
     if user_input[INPUT_TYPE] == CSV_EXT:
         logging.debug("Accessing script: A1_csv_to_json")
         move_copy_config_file = True
-        load_data_from_csv.create_input_json(
+        A1.create_input_json(
             input_directory=os.path.join(user_input[PATH_INPUT_FOLDER], CSV_ELEMENTS)
         )
 
     logging.debug("Accessing script: B0_data_input_json")
-    dict_values = data_input.load_json(
+    dict_values = B0.load_json(
         user_input[PATH_INPUT_FILE],
         path_input_folder=user_input[PATH_INPUT_FOLDER],
         path_output_folder=user_input[PATH_OUTPUT_FOLDER],
@@ -151,9 +151,9 @@ def main(**kwargs):
 
     print("")
     logging.debug("Accessing script: C0_data_processing")
-    data_processing.all(dict_values)
+    C0.all(dict_values)
 
-    output_processing.store_as_json(
+    F0.store_as_json(
         dict_values,
         dict_values[SIMULATION_SETTINGS][PATH_OUTPUT_FOLDER],
         JSON_PROCESSED,
@@ -166,16 +166,16 @@ def main(**kwargs):
 
     print("")
     logging.debug("Accessing script: D0_modelling_and_optimization")
-    results_meta, results_main = modelling.run_oemof(
+    results_meta, results_main = D0.run_oemof(
         dict_values, save_energy_system_graph=save_energy_system_graph,
     )
 
     print("")
     logging.debug("Accessing script: E0_evaluation")
-    evaluation.evaluate_dict(dict_values, results_main, results_meta)
+    E0.evaluate_dict(dict_values, results_main, results_meta)
 
     logging.debug("Accessing script: F0_outputs")
-    output_processing.evaluate_dict(
+    F0.evaluate_dict(
         dict_values,
         path_pdf_report=user_input.get("path_pdf_report", None),
         path_png_figs=user_input.get("path_png_figs", None),
@@ -218,7 +218,7 @@ def report(pdf=None, path_simulation_output_json=None, path_pdf_report=None):
     """
 
     # Parse the arguments from the command line
-    parser = initializing.report_arg_parser()
+    parser = A0.report_arg_parser()
     args = vars(parser.parse_args())
 
     # Give priority from user input kwargs over command line arguments
@@ -255,7 +255,7 @@ def report(pdf=None, path_simulation_output_json=None, path_pdf_report=None):
             path_pdf_report = os.path.join(path_sim_output, REPORT_FOLDER, PDF_REPORT)
 
         # load the results of a simulation
-        dict_values = data_input.load_json(
+        dict_values = B0.load_json(
             path_simulation_output_json, flag_missing_values=False
         )
         test_app = create_app(dict_values, path_sim_output=path_sim_output)
