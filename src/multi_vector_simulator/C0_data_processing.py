@@ -782,7 +782,8 @@ def define_availability_of_peak_demand_pricing_assets(
 
         availability_in_period = availability_in_period.add(
             pd.Series(1, index=time_period), fill_value=0
-        )
+        ).loc[dict_values[SIMULATION_SETTINGS][TIME_INDEX]]
+        print(f"lenght of availability_in_period: {len(availability_in_period)}")
         dict_availability_timeseries.update({period: availability_in_period})
 
     return dict_availability_timeseries
