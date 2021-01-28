@@ -54,6 +54,8 @@ Here is a template for new release sections
 - `E4.minimal_renewable_share_test()` into generic `E4.minimal_constraint_test()` so that it can be applied both to minimal renewable share and minimal degree of autonomy (#726)
 - `C1.check_non_dispatchable_source_time_series()`, now verification not only applied to renewable assets, but all non-dispatchable assets (#726)
 - Add `MINIMAL_DEGREE_OF_AUTONOMY` to EPA-MVS parser (`utils.data_parser.convert_epa_params_to_mvs()`)(#726)
+- Refactor module imports in `cli.py` and `server.py` ()
+- Limit index of availability timeseries to simulation timeindex (`C0.define_availability_of_peak_demand_pricing_assets`) ()
 
 ### Removed
 - Remove `MissingParameterWarning` and use `logging.warning` instead (#761)
