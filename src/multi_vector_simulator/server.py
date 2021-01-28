@@ -37,11 +37,11 @@ import logging
 import json
 
 # Loading all child functions
-import multi_vector_simulator.B0_data_input_json as data_input
-import multi_vector_simulator.C0_data_processing as data_processing
-import multi_vector_simulator.D0_modelling_and_optimization as modelling
-import multi_vector_simulator.E0_evaluation as evaluation
-import multi_vector_simulator.F0_output as output_processing
+import multi_vector_simulator.B0_data_input_json as B0
+import multi_vector_simulator.C0_data_processing as C0
+import multi_vector_simulator.D0_modelling_and_optimization as D0
+import multi_vector_simulator.E0_evaluation as E0
+import multi_vector_simulator.F0_output as F0
 from multi_vector_simulator.version import version_num, version_date
 from multi_vector_simulator.utils import data_parser
 
@@ -88,26 +88,26 @@ def run_simulation(json_dict, epa_format=True, **kwargs):
     logging.info(welcome_text)
 
     logging.debug("Accessing script: B0_data_input_json")
-    dict_values = data_input.convert_from_json_to_special_types(json_dict)
+    dict_values = B0.convert_from_json_to_special_types(json_dict)
 
     print("")
     logging.debug("Accessing script: C0_data_processing")
-    data_processing.all(dict_values)
+    C0.all(dict_values)
 
     print("")
     logging.debug("Accessing script: D0_modelling_and_optimization")
-    results_meta, results_main = modelling.run_oemof(dict_values)
+    results_meta, results_main = D0.run_oemof(dict_values)
 
     print("")
     logging.debug("Accessing script: E0_evaluation")
-    evaluation.evaluate_dict(dict_values, results_main, results_meta)
+    E0.evaluate_dict(dict_values, results_main, results_meta)
 
     logging.debug("Convert results to json")
 
     if epa_format is True:
         epa_dict_values = data_parser.convert_mvs_params_to_epa(dict_values)
 
-        json_values = output_processing.store_as_json(epa_dict_values)
+        json_values = F0.store_as_json(epa_dict_values)
         answer = json.loads(json_values)
 
     else:
